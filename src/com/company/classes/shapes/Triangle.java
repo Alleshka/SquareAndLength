@@ -1,5 +1,6 @@
 package com.company.classes.shapes;
 
+import com.company.classes.Constants;
 import com.company.classes.Utils;
 
 public class Triangle extends Shape {
@@ -8,10 +9,33 @@ public class Triangle extends Shape {
     private Point b;
     private Point c;
 
-    public Triangle(Point a, Point b, Point c) {
-        this.a = a;
-        this.b = b;
-        this.c = c;
+    public Triangle(String[] args) throws BuildShapeException {
+        super(args);
+    }
+
+    @Override
+    protected void InitShapeByArgs(String[] args) throws BuildShapeException {
+        var p1 = new Point(Double.parseDouble(args[1]), Double.parseDouble(args[2]));
+        var p2 = new Point(Double.parseDouble(args[3]), Double.parseDouble(args[4]));
+        var p3 = new Point(Double.parseDouble(args[5]), Double.parseDouble(args[6]));
+
+        if (!Utils.isPointsOnLine(p1, p2, p3)) {
+            this.a = p1;
+            this.b = p2;
+            this.c = p3;
+        } else {
+            ThrowIfCannotBuild("Указанные точки не составляют треугольник", p1.toString(), p2.toString(), p3.toString());
+        }
+    }
+
+    @Override
+    public String getShapeName() {
+        return Constants.TRIANGLE_SHAPE_NAME;
+    }
+
+    @Override
+    protected int NeedArgumentsToBuild() {
+        return 6;
     }
 
     @Override

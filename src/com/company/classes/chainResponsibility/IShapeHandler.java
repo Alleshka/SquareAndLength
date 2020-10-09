@@ -1,5 +1,6 @@
 package com.company.classes.chainResponsibility;
 
+import com.company.classes.shapes.BuildShapeException;
 import com.company.classes.shapes.Shape;
 
 // Интерфейс обработчика в цепочке обязханностей
@@ -10,5 +11,5 @@ public interface IShapeHandler {
     void setNextHandler(IShapeHandler handler);
 
     // Обрабатывает аргументы и возвращает фигуру
-    Shape handle(String[] args) throws Exception;
+    Shape handle(String[] args) throws BuildShapeException;
 }

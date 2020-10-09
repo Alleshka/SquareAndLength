@@ -1,10 +1,17 @@
 package com.company.classes.chainResponsibility;
 
+import com.company.classes.shapes.BuildShapeException;
 import com.company.classes.shapes.Shape;
 
 // Базовый обработчик структур
 abstract class BaseShapeHandler implements IShapeHandler {
+
+    protected String _shapeName;
     protected IShapeHandler _nextHandler;
+
+    public BaseShapeHandler(String shapeName) {
+        _shapeName = shapeName;
+    }
 
     @Override
     public IShapeHandler getNextHandler() {
@@ -18,9 +25,10 @@ abstract class BaseShapeHandler implements IShapeHandler {
 
     @Override
     // Обработка аргументов из файла
-    public Shape handle(String[] args) throws Exception {
+    public Shape handle(String[] args) throws BuildShapeException {
         // Если обработчик может обработать - обрабатываем
-        if (isCorrectShape(args)) {
+        // Проверка обработки происходит по имени фигуры, заданной в конструкторе
+        if (args.length > 0 && args[0].equals(_shapeName)) {
             return handlePackage(args);
         } else {
             // Если не может, то передаём следующему
@@ -28,19 +36,11 @@ abstract class BaseShapeHandler implements IShapeHandler {
                 return getNextHandler().handle(args);
             } else {
                 // Если следующего нет, то никто не смог обработать и сообщаем об ошибке
-                var builder = new StringBuilder();
-                builder.append("Описание неизвестной фигуры");
-                builder.append(System.lineSeparator());
-                builder.append("args = ");
-                builder.append(String.join(" ", args));
-                throw new Exception(builder.toString());
+                throw new BuildShapeException("Описание неизвестной фигуры: [" + String.join("; ", args) + "];");
             }
         }
     }
 
-    // Возвращает возможность обработчика обработать указанные аргументы
-    protected abstract boolean isCorrectShape(String[] args);
-
     // Обрабатывает указанные аргументы
-    protected abstract Shape handlePackage(String[] args);
+    protected abstract Shape handlePackage(String[] args) throws BuildShapeException;
 }

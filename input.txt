@@ -1,1 +1,13 @@
+Point 1 2
+Point 1
+Vector 1 2 3 4
+Triangle 1 2 6 5 8 1
+Triangle 1 1 2 2 3 3
+Tetragon 1 1 2 4 4 1 8 9
+Square 0 0 0 5 5 0 5 5
+Square 0 0 0 5 5 0 5 4
+Square 0 0 0
+Circle 1 2 5
+Circle 1 2 -5
+Circle 1 2 0
 1 0 3 0 1 2 3 2

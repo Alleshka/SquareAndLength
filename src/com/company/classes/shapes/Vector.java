@@ -1,15 +1,25 @@
 package com.company.classes.shapes;
 
+import com.company.classes.Constants;
 import com.company.classes.Utils;
 
 public class Vector extends Shape {
 
-    private final Point a;
-    private final Point b;
+    private Point a;
+    private Point b;
 
-    public Vector(Point a, Point b) {
-        this.a = a;
-        this.b = b;
+    public Vector(String[] args) throws BuildShapeException {
+        super(args);
+    }
+
+    @Override
+    public String getShapeName() {
+        return Constants.VECTOR_SHAPE_NAME;
+    }
+
+    @Override
+    protected int NeedArgumentsToBuild() {
+        return 4;
     }
 
     @Override
@@ -20,6 +30,12 @@ public class Vector extends Shape {
     @Override
     public double calcL() {
         return Utils.calculateDistance(a, b);
+    }
+
+    @Override
+    protected void InitShapeByArgs(String[] args) throws BuildShapeException {
+        this.a = new Point(Double.parseDouble(args[1]), Double.parseDouble(args[2]));
+        this.b = new Point(Double.parseDouble(args[3]), Double.parseDouble(args[4]));
     }
 
     @Override

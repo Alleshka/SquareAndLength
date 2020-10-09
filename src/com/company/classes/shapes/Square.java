@@ -1,8 +1,10 @@
 package com.company.classes.shapes;
 
+import com.company.classes.Constants;
 import com.company.classes.Utils;
 
 public class Square extends Shape {
+
     private Point a;
     private Point b;
     private Point c;
@@ -10,9 +12,18 @@ public class Square extends Shape {
 
     private double size;
 
-    public Square(Point a, Point b, Point c, Point d) {
-        InitSquare(a, b, c, d);
-        this.size = Utils.calculateDistance(a, b);
+    public Square(String[] args) throws BuildShapeException {
+        super(args);
+    }
+
+    @Override
+    public String getShapeName() {
+        return Constants.SQUARE_SHAPE_NAME;
+    }
+
+    @Override
+    protected int NeedArgumentsToBuild() {
+        return 8;
     }
 
     @Override
@@ -25,7 +36,16 @@ public class Square extends Shape {
         return 4 * this.size;
     }
 
-    protected void InitSquare(Point a, Point b, Point c, Point d) {
+    @Override
+    protected void InitShapeByArgs(String[] args) throws BuildShapeException {
+        var a = new Point(Double.parseDouble(args[1]), Double.parseDouble(args[2]));
+        var b = new Point(Double.parseDouble(args[3]), Double.parseDouble(args[4]));
+        var c = new Point(Double.parseDouble(args[5]), Double.parseDouble(args[6]));
+        var d = new Point(Double.parseDouble(args[7]), Double.parseDouble(args[8]));
+        InitSquare(a, b, c, d);
+    }
+
+    protected void InitSquare(Point a, Point b, Point c, Point d) throws BuildShapeException {
         double s1, s2, s3, s4, s5, s6;
 
         s1 = Utils.calculateDistanceSq(a, b);
@@ -50,7 +70,11 @@ public class Square extends Shape {
             this.b = c;
             this.c = b;
             this.d = d;
+        } else {
+            ThrowIfCannotBuild("Указанные точки не образуют квадрат", a.toString(), b.toString(), c.toString(), d.toString());
         }
+
+        this.size = Utils.calculateDistance(a, b);
     }
 
     @Override
