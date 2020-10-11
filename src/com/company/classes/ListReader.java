@@ -24,6 +24,7 @@ public class ListReader {
                     var figureName = scanner.next();
                     var item = handler.handle(figureName,scanner);
                     list.add(item);
+                    scanner.close();
                 } catch (BuildShapeException ex) {
                     result.addError(ex.getMessage());
                 }
