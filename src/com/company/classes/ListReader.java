@@ -5,6 +5,7 @@ import com.company.classes.shapes.BuildShapeException;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.Scanner;
 
 // Считыватель файла
 public class ListReader {
@@ -19,7 +20,9 @@ public class ListReader {
             String str;
             while ((str = reader.readLine()) != null) {
                 try {
-                    var item = handler.handle(str.split(" "));
+                    var scanner = new Scanner(str);
+                    var figureName = scanner.next();
+                    var item = handler.handle(figureName,scanner);
                     list.add(item);
                 } catch (BuildShapeException ex) {
                     result.addError(ex.getMessage());

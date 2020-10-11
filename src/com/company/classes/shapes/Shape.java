@@ -1,5 +1,7 @@
 package com.company.classes.shapes;
 
+import java.util.Scanner;
+
 public abstract class Shape {
 
     public abstract double calcS();
@@ -10,16 +12,15 @@ public abstract class Shape {
 
     }
 
-    public Shape(String[] args) throws BuildShapeException {
-        var needArgs = NeedArgumentsToBuild() + 1;
-        if (args.length >= needArgs) {
-            InitShapeByArgs(args);
-        } else {
-            ThrowIfCannotBuild("Не хватает аргументов для построения фигуры (Требуется: " + needArgs + "; Указано: " + args.length + ")", args);
-        }
+    public Shape(Scanner scanner) throws BuildShapeException {
+        InitShapeByScanner(scanner);
     }
 
-    protected abstract void InitShapeByArgs(String[] args) throws BuildShapeException;
+    private void InitShape(Scanner scanner) throws BuildShapeException {
+        InitShapeByScanner(scanner);
+    }
+
+    protected abstract void InitShapeByScanner(Scanner scanner) throws BuildShapeException;
 
     public abstract String getShapeName();
 
@@ -32,5 +33,8 @@ public abstract class Shape {
         throw new BuildShapeException(builder.toString());
     }
 
-    protected abstract int NeedArgumentsToBuild();
+    protected double getNextDoubleOrThrow(Scanner scanner) throws BuildShapeException {
+        if (scanner.hasNextDouble()) return scanner.nextDouble();
+        else throw new BuildShapeException("Недостаточно аргументов для построения фигуры " + this.getShapeName());
+    }
 }

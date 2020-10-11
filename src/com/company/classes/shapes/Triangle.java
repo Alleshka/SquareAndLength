@@ -3,21 +3,23 @@ package com.company.classes.shapes;
 import com.company.classes.Constants;
 import com.company.classes.Utils;
 
+import java.util.Scanner;
+
 public class Triangle extends Shape {
 
     private Point a;
     private Point b;
     private Point c;
 
-    public Triangle(String[] args) throws BuildShapeException {
-        super(args);
+    public Triangle(Scanner scanner) throws BuildShapeException {
+        super(scanner);
     }
 
     @Override
-    protected void InitShapeByArgs(String[] args) throws BuildShapeException {
-        var p1 = new Point(Double.parseDouble(args[1]), Double.parseDouble(args[2]));
-        var p2 = new Point(Double.parseDouble(args[3]), Double.parseDouble(args[4]));
-        var p3 = new Point(Double.parseDouble(args[5]), Double.parseDouble(args[6]));
+    protected void InitShapeByScanner(Scanner scanner) throws BuildShapeException {
+        var p1 = new Point(getNextDoubleOrThrow(scanner), getNextDoubleOrThrow(scanner));
+        var p2 = new Point(getNextDoubleOrThrow(scanner), getNextDoubleOrThrow(scanner));
+        var p3 = new Point(getNextDoubleOrThrow(scanner), getNextDoubleOrThrow(scanner));
 
         if (!Utils.isPointsOnLine(p1, p2, p3)) {
             this.a = p1;
@@ -33,10 +35,6 @@ public class Triangle extends Shape {
         return Constants.TRIANGLE_SHAPE_NAME;
     }
 
-    @Override
-    protected int NeedArgumentsToBuild() {
-        return 6;
-    }
 
     @Override
     public double calcS() {

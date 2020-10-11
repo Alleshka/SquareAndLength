@@ -2,24 +2,22 @@ package com.company.classes.shapes;
 
 import com.company.classes.Constants;
 
+import java.nio.channels.Pipe;
+import java.util.Scanner;
+
 // Круг
 public class Circle extends Shape {
 
     private Point center;
     private Double r;
 
-    public Circle(String[] args) throws BuildShapeException {
-        super(args);
+    public Circle(Scanner scanner) throws BuildShapeException {
+        super(scanner);
     }
 
     @Override
     public String getShapeName() {
         return Constants.CIRCLE_SHAPE_NAME;
-    }
-
-    @Override
-    protected int NeedArgumentsToBuild() {
-        return 3;
     }
 
     @Override
@@ -33,10 +31,14 @@ public class Circle extends Shape {
     }
 
     @Override
-    protected void InitShapeByArgs(String[] args) throws BuildShapeException {
-        this.center = new Point(Double.parseDouble(args[1]), Double.parseDouble(args[2]));
-        this.setR(Double.parseDouble(args[3]));
+    protected void InitShapeByScanner(Scanner scanner) throws BuildShapeException {
+        double x = getNextDoubleOrThrow(scanner);
+        double y = getNextDoubleOrThrow(scanner);
+
+        setR(getNextDoubleOrThrow(scanner));
+        this.center = new Point(x, y);
     }
+
 
     public Double getR() {
         return r;

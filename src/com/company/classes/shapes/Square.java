@@ -3,6 +3,8 @@ package com.company.classes.shapes;
 import com.company.classes.Constants;
 import com.company.classes.Utils;
 
+import java.util.Scanner;
+
 public class Square extends Shape {
 
     private Point a;
@@ -12,18 +14,13 @@ public class Square extends Shape {
 
     private double size;
 
-    public Square(String[] args) throws BuildShapeException {
-        super(args);
+    public Square(Scanner scanner) throws BuildShapeException {
+        super(scanner);
     }
 
     @Override
     public String getShapeName() {
         return Constants.SQUARE_SHAPE_NAME;
-    }
-
-    @Override
-    protected int NeedArgumentsToBuild() {
-        return 8;
     }
 
     @Override
@@ -37,11 +34,11 @@ public class Square extends Shape {
     }
 
     @Override
-    protected void InitShapeByArgs(String[] args) throws BuildShapeException {
-        var a = new Point(Double.parseDouble(args[1]), Double.parseDouble(args[2]));
-        var b = new Point(Double.parseDouble(args[3]), Double.parseDouble(args[4]));
-        var c = new Point(Double.parseDouble(args[5]), Double.parseDouble(args[6]));
-        var d = new Point(Double.parseDouble(args[7]), Double.parseDouble(args[8]));
+    protected void InitShapeByScanner(Scanner scanner) throws BuildShapeException {
+        var a = new Point(getNextDoubleOrThrow(scanner), getNextDoubleOrThrow(scanner));
+        var b = new Point(getNextDoubleOrThrow(scanner), getNextDoubleOrThrow(scanner));
+        var c = new Point(getNextDoubleOrThrow(scanner), getNextDoubleOrThrow(scanner));
+        var d = new Point(getNextDoubleOrThrow(scanner), getNextDoubleOrThrow(scanner));
         InitSquare(a, b, c, d);
     }
 

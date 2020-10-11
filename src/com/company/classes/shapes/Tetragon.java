@@ -4,6 +4,7 @@ import com.company.classes.Constants;
 import com.company.classes.Utils;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Tetragon extends Shape {
 
@@ -12,17 +13,17 @@ public class Tetragon extends Shape {
     private Point c;
     private Point d;
 
-    public Tetragon(String[] args) throws BuildShapeException {
-        super(args);
+    public Tetragon(Scanner scanner) throws BuildShapeException {
+        super(scanner);
     }
 
     @Override
-    protected void InitShapeByArgs(String[] args) throws BuildShapeException {
+    protected void InitShapeByScanner(Scanner scanner) throws BuildShapeException {
         var points = new ArrayList<Point>(4);
-        points.add(new Point(Double.parseDouble(args[1]), Double.parseDouble(args[2])));
-        points.add(new Point(Double.parseDouble(args[3]), Double.parseDouble(args[4])));
-        points.add(new Point(Double.parseDouble(args[5]), Double.parseDouble(args[6])));
-        points.add(new Point(Double.parseDouble(args[7]), Double.parseDouble(args[8])));
+        points.add(new Point(getNextDoubleOrThrow(scanner), getNextDoubleOrThrow(scanner)));
+        points.add(new Point(getNextDoubleOrThrow(scanner), getNextDoubleOrThrow(scanner)));
+        points.add(new Point(getNextDoubleOrThrow(scanner), getNextDoubleOrThrow(scanner)));
+        points.add(new Point(getNextDoubleOrThrow(scanner), getNextDoubleOrThrow(scanner)));
 
         points.sort(null);
 
@@ -42,11 +43,6 @@ public class Tetragon extends Shape {
     @Override
     public String getShapeName() {
         return Constants.TETRAGON_SHAPE_NAME;
-    }
-
-    @Override
-    protected int NeedArgumentsToBuild() {
-        return 8;
     }
 
     @Override

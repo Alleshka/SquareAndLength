@@ -4,6 +4,7 @@ import com.company.classes.Constants;
 import com.company.classes.Utils;
 
 import java.util.Comparator;
+import java.util.Scanner;
 
 // Точка
 public class Point extends Shape implements Comparator<Point>, Comparable<Point> {
@@ -17,18 +18,13 @@ public class Point extends Shape implements Comparator<Point>, Comparable<Point>
         this.y = y;
     }
 
-    public Point(String[] args) throws BuildShapeException {
-        super(args);
+    public Point(Scanner scanner) throws BuildShapeException {
+        super(scanner);
     }
 
     @Override
     public String getShapeName() {
         return Constants.POINT_SHAPE_NAME;
-    }
-
-    @Override
-    protected int NeedArgumentsToBuild() {
-        return 2;
     }
 
     @Override
@@ -42,10 +38,11 @@ public class Point extends Shape implements Comparator<Point>, Comparable<Point>
     }
 
     @Override
-    protected void InitShapeByArgs(String[] args) throws BuildShapeException {
-        this.x = Double.parseDouble(args[1]);
-        this.y = Double.parseDouble(args[2]);
+    protected void InitShapeByScanner(Scanner scanner) throws BuildShapeException {
+        this.x = getNextDoubleOrThrow(scanner);
+        this.y = getNextDoubleOrThrow(scanner);
     }
+
 
     public double getX() {
         return x;
